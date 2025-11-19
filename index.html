@@ -3,14 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的第一個 GPT 網站</title>
-    <link rel="stylesheet" href="style.css"> 
+    <title>東森國際假日巡察表</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>歡迎來到我的網站</h1>
-    <p id="counter">計數：0</p>
-    <button onclick="increaseCount()">點擊增加</button>
+    <div class="form-container">
+        <h1>東森國際台中營運管理處巡察表</h1>
+        <form id="inspectionForm" action="<form id="inspectionForm" action="https://script.google.com/macros/s/AKfycxxxxxxxxx/exec" method="POST">" method="POST">
+            
+            <fieldset>
+                <legend>一、基礎資訊</legend>
+                <div class="form-group">
+                    <label for="inspectionDate">巡察日期：</label>
+                    <input type="date" id="inspectionDate" name="巡察日期" required>
+                </div>
+                <div class="form-group">
+                    <label for="inspector">巡察人：</label>
+                    <input type="text" id="inspector" name="巡察人" value="王子明" readonly> 
+                    </div>
+                <div class="form-group">
+                    <label for="inspectionTime">查核時間：</label>
+                    <input type="time" id="inspectionTime" name="查核時間" value="08:00" required>
+                    </div>
+                <div class="form-group">
+                    <label>巡察類型：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="巡察類型" value="一般假日" checked> 一般假日</label>
+                        <label><input type="radio" name="巡察類型" value="連續假日"> 連續假日</label>
+                    </div>
+                </div>
+            </fieldset>
 
-    <script src="script.js"></script> 
+            <fieldset>
+                <legend>二、穀倉作業狀況</legend>
+
+                <div class="form-group">
+                    <label>#1 號穀倉 作業狀態：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="1號穀倉作業" value="進倉作業中"> 進倉作業中 (○)</label>
+                        <label><input type="radio" name="1號穀倉作業" value="出倉作業中"> 出倉作業中 (○)</label>
+                        <label><input type="radio" name="1號穀倉作業" value="無作業" checked> 無作業 ( )</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>#3 號穀倉 作業狀態：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="3號穀倉作業" value="進倉作業中"> 進倉作業中 (○)</label>
+                        <label><input type="radio" name="3號穀倉作業" value="出倉作業中"> 出倉作業中 (○)</label>
+                        <label><input type="radio" name="3號穀倉作業" value="無作業" checked> 無作業 ( )</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bin_desc">穀倉作業說明 (如作業人員、進出倉狀態)：</label>
+                    <textarea id="bin_desc" name="穀倉作業說明" rows="3"></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>三、碼頭區與主要設備檢查</legend>
+                
+                <div class="form-group check-item">
+                    <label>吸/卸穀機 ▲一樓樓梯門 (無作業時上鎖)：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="吸穀機門鎖" value="正常/上鎖" checked> 正常/上鎖</label>
+                        <label><input type="radio" name="吸穀機門鎖" value="異常/未上鎖"> 異常/未上鎖</label>
+                    </div>
+                </div>
+
+                <div class="form-group check-item">
+                    <label>▲船邊纜繩、舷梯、防鼠盾：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="纜繩防鼠盾" value="正常" checked> 正常</label>
+                        <label><input type="radio" name="纜繩防鼠盾" value="異常"> 異常</label>
+                    </div>
+                </div>
+                
+                <div class="form-group check-item">
+                    <label>▲碼頭東西側交界 (管制狀態)：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="東西側交界" value="正常管制" checked> 正常管制</label>
+                        <label><input type="radio" name="東西側交界" value="管制異常"> 管制異常</label>
+                    </div>
+                </div>
+                
+                <div class="form-group check-item">
+                    <label>地磅磅槽積水檢查：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="磅槽積水" value="正常/無積水" checked> 正常/無積水</label>
+                        <label><input type="radio" name="磅槽積水" value="異常/有積水"> 異常/有積水</label>
+                    </div>
+                </div>
+                
+            </fieldset>
+
+            <fieldset>
+                <legend>四、消防與安全管制</legend>
+                
+                <div class="form-group check-item">
+                    <label>消防受信總機系統：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="消防總機" value="正常" checked> 正常</label>
+                        <label><input type="radio" name="消防總機" value="異常"> 異常</label>
+                    </div>
+                </div>
+
+                <div class="form-group check-item">
+                    <label>機械塔南、北側邊門及倉底管制：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="機械塔管制" value="正常" checked> 正常</label>
+                        <label><input type="radio" name="機械塔管制" value="異常"> 異常</label>
+                    </div>
+                </div>
+                
+                <div class="form-group check-item">
+                    <label>人車進出管制 (管制站)：</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="人車管制" value="正常" checked> 正常</label>
+                        <label><input type="radio" name="人車管制" value="異常"> 異常</label>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>五、發現問題與處理對策</legend>
+                <div class="form-group">
+                    <label for="issue">問題描述 (請依照文件格式，例如：機具插頭是否拔離插座、設備溫度量測等)：</label>
+                    <textarea id="issue" name="問題描述" rows="5" placeholder="例如：發現高壓配電室周邊水溝有輕微積水；未使用的鑽床插頭已拔離。"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="solution">處理對策或說明：</label>
+                    <textarea id="solution" name="處理對策或說明" rows="3" placeholder="例如：已通知人員清理水溝；無即時需處理問題。"></textarea>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="submit-button">提交巡察報告</button>
+        </form>
+    </div>
 </body>
 </html>
