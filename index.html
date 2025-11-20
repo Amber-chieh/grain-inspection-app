@@ -1,151 +1,145 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
+    <!-- 響應式設計的關鍵：確保網頁寬度與設備寬度一致 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東森國際假日巡察表</title>
+    <title>東森國際穀倉巡察表 - 效率優化版 V5</title>
+    <!-- 引用外部樣式表 -->
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="form-container">
-        <h1>倉儲事業部台中高雄穀倉數位巡察表</h1>
-        
-        <form id="inspectionForm" method="POST">
-            
-            <fieldset>
-                <legend>一、基礎資訊</legend>
-                <div class="form-group">
-                    <label for="inspectionDate">巡察日期：</label>
-                    <input type="date" id="inspectionDate" name="巡察日期" required>
-                </div>
-                <div class="form-group">
-                    <label for="inspector">巡察人：</label>
-                    <input type="text" id="inspector" name="巡察人" value="王子明" readonly> 
-                </div>
-                <div class="form-group">
-                    <label for="inspectionTime">查核時間：</label>
-                    <input type="time" id="inspectionTime" name="查核時間" value="08:00" required>
-                </div>
-                <div class="form-group">
-                    <label>巡察類型：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="巡察類型" value="一般假日" checked> 一般假日</label>
-                        <label><input type="radio" name="巡察類型" value="連續假日"> 連續假日</label>
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>二、穀倉作業狀況</legend>
-
-                <div class="form-group">
-                    <label>#1 號穀倉 作業狀態：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="1號穀倉作業" value="進倉作業中"> 進倉作業中 (○)</label>
-                        <label><input type="radio" name="1號穀倉作業" value="出倉作業中"> 出倉作業中 (○)</label>
-                        <label><input type="radio" name="1號穀倉作業" value="無作業" checked> 無作業 ( )</label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>#3 號穀倉 作業狀態：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="3號穀倉作業" value="進倉作業中"> 進倉作業中 (○)</label>
-                        <label><input type="radio" name="3號穀倉作業" value="出倉作業中"> 出倉作業中 (○)</label>
-                        <label><input type="radio" name="3號穀倉作業" value="無作業" checked> 無作業 ( )</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="bin_desc">穀倉作業說明 (如作業人員、進出倉狀態)：</label>
-                    <textarea id="bin_desc" name="穀倉作業說明" rows="3"></textarea>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>三、碼頭區與主要設備檢查</legend>
-                
-                <div class="form-group check-item">
-                    <label>吸/卸穀機 ▲一樓樓梯門 (無作業時上鎖)：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="吸穀機門鎖" value="正常/上鎖" checked> 正常/上鎖</label>
-                        <label><input type="radio" name="吸穀機門鎖" value="異常/未上鎖"> 異常/未上鎖</label>
-                    </div>
-                </div>
-
-                <div class="form-group check-item">
-                    <label>▲船邊纜繩、舷梯、防鼠盾：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="纜繩防鼠盾" value="正常" checked> 正常</label>
-                        <label><input type="radio" name="纜繩防鼠盾" value="異常"> 異常</label>
-                    </div>
-                </div>
-                
-                <div class="form-group check-item">
-                    <label>▲碼頭東西側交界 (管制狀態)：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="東西側交界" value="正常管制" checked> 正常管制</label>
-                        <label><input type="radio" name="東西側交界" value="管制異常"> 管制異常</label>
-                    </div>
-                </div>
-                
-                <div class="form-group check-item">
-                    <label>地磅磅槽積水檢查：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="磅槽積水" value="正常/無積水" checked> 正常/無積水</label>
-                        <label><input type="radio" name="磅槽積水" value="異常/有積水"> 異常/有積水</label>
-                    </div>
-                </div>
-                
-            </fieldset>
-
-            <fieldset>
-                <legend>四、消防與安全管制</legend>
-                
-                <div class="form-group check-item">
-                    <label>消防受信總機系統：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="消防總機" value="正常" checked> 正常</label>
-                        <label><input type="radio" name="消防總機" value="異常"> 異常</label>
-                    </div>
-                </div>
-
-                <div class="form-group check-item">
-                    <label>機械塔南、北側邊門及倉底管制：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="機械塔管制" value="正常" checked> 正常</label>
-                        <label><input type="radio" name="機械塔管制" value="異常"> 異常</label>
-                    </div>
-                </div>
-                
-                <div class="form-group check-item">
-                    <label>人車進出管制 (管制站)：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="人車管制" value="正常" checked> 正常</label>
-                        <label><input type="radio" name="人車管制" value="異常"> 異常</label>
-                    </div>
-                </div>
-
-            </fieldset>
-
-            <fieldset>
-                <legend>五、發現問題與處理對策</legend>
-                <div class="form-group">
-                    <label for="issue">問題描述 (請依照文件格式，例如：機具插頭是否拔離插座、設備溫度量測等)：</label>
-                    <textarea id="issue" name="問題描述" rows="5" placeholder="例如：發現高壓配電室周邊水溝有輕微積水；未使用的鑽床插頭已拔離。"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="solution">處理對策或說明：</label>
-                    <textarea id="solution" name="處理對策或說明" rows="3" placeholder="例如：已通知人員清理水溝；無即時需處理問題。"></textarea>
-                </div>
-            </fieldset>
-
-            <button type="submit" class="submit-button">提交巡察報告</button>
-            
-        </form>
-        
-    </div>
     
-    <script src="script.js"></script> 
+    <!-- 引入 Tailwind CSS CDN 並設定配置 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind CSS 配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1e40af',
+                        'secondary-green': '#059669',
+                        'abnormal-red': '#dc2626',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="p-4 sm:p-8">
+    <!-- max-w-4xl mx-auto 確保內容最大寬度適中，並在所有螢幕上居中 -->
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl sm:text-3xl font-bold text-primary-blue mb-2 text-center">東森國際 假日穀倉巡察紀錄</h1>
+        <p class="text-center text-gray-600 mb-6 text-sm sm:text-base">請以填寫人的立場，詳實記錄各項巡察結果。</p>
+        
+        <!-- User/Auth Status - 使用 flex 確保在小螢幕上也能保持良好間距 -->
+        <div id="auth-info" class="mb-4 p-3 bg-white rounded-lg shadow border-l-4 border-primary-blue text-sm text-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+            <div class="mb-2 sm:mb-0">
+                <span class="font-semibold">當前使用者 (ID): </span>
+                <span id="user-display-id" class="break-all text-xs">載入中...</span>
+            </div>
+            <span id="auth-status" class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">登入中</span>
+        </div>
+
+        <!-- Form Section -->
+        <div id="inspection-form" class="card bg-white p-4 sm:p-6 rounded-xl space-y-6">
+            
+            <!-- Basic Info & Silo Selection -->
+            <div class="border-b pb-4">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">一、 基本資訊與作業概況</h2>
+                
+                <!-- grid-cols-1 md:grid-cols-2: 手機單欄，平板以上雙欄 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- Inspection Type Selector -->
+                    <div>
+                        <label for="inspection-type" class="block text-sm font-medium text-gray-700 mb-1">巡察類型 <span class="text-abnormal-red">*</span></label>
+                        <select id="inspection-type" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue">
+                            <option value="General" selected>一般假日巡察</option>
+                            <option value="LongHoliday">連續假日巡察</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Operation Status Selector -->
+                    <div>
+                        <label for="operation-status" class="block text-sm font-medium text-gray-700 mb-1">當前作業狀態 <span class="text-abnormal-red">*</span></label>
+                        <select id="operation-status" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue">
+                            <option value="None" selected>無作業</option>
+                            <option value="Inbound">進倉作業中</option>
+                            <option value="Outbound">出倉作業中</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Silo Selection and Date/Time -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Silo Selection -->
+                    <div>
+                        <label for="select-silo" class="block text-sm font-medium text-gray-700 mb-1">巡察地點 / 穀倉編號 <span class="text-abnormal-red">*</span></label>
+                        <select id="select-silo" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue">
+                            <option value="" disabled selected>請選擇地點與穀倉</option>
+                            <option value="Taichung#1">台中 (#1)</option>
+                            <option value="Taichung#3">台中 (#3)</option>
+                            <option value="Kaohsiung#71">高雄 (#71)</option>
+                            <option value="Kaohsiung#72">高雄 (#72)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Inspection Date/Time -->
+                    <div>
+                        <label for="inspection-date" class="block text-sm font-medium text-gray-700 mb-1">巡察日期/時間 <span class="text-abnormal-red">*</span></label>
+                        <!-- type="datetime-local" 在手機上有良好的原生輸入體驗 -->
+                        <input type="datetime-local" id="inspection-date" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inspection Checklists -->
+            <h2 class="text-xl font-semibold text-gray-800 pt-4 mb-4 border-b pb-2">二、 巡察細項紀錄</h2>
+
+            <div id="checklist-container" class="space-y-4">
+                <!-- Items will be generated here by script.js -->
+            </div>
+            
+            <!-- Global Observations & Notes -->
+            <div class="border-t pt-4">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">三、 總結報告與處置對策</h2>
+                <label for="general-notes" class="block text-sm font-medium text-gray-700 mb-1">執勤風紀、勞安情況及發現問題、處理對策 (詳實記錄)</label>
+                <textarea id="general-notes" rows="5" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue" placeholder="例如：現場人員皆依規定穿戴安全帽反光背心，精神良好。#1卡車一口有電纜線固定環損壞，已派員重新繫固。"></textarea>
+            </div>
+
+            <!-- Inspector Signature -->
+            <div class="border-t pt-4">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">四、 巡察人員簽名</h2>
+                <!-- 確保按鈕在小螢幕上也有足夠的點擊區域 -->
+                <label class="block text-sm font-medium text-gray-700 mb-1">請在下方簽名 <button onclick="clearSignature()" class="text-abnormal-red text-xs ml-3 hover:underline p-1">清除簽名</button></label>
+                <canvas id="signatureCanvas" class="signature-pad w-full" width="400" height="150"></canvas>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6">
+                <!-- w-full 確保按鈕佔滿寬度，手機上容易點擊 -->
+                <button id="submit-button" onclick="submitInspection()" class="w-full bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-150 ease-in-out disabled:opacity-50" disabled>
+                    提交巡察紀錄
+                </button>
+            </div>
+        </div>
+
+        <!-- Saved Inspections List (Manager/Review View) -->
+        <div class="mt-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 space-y-2 sm:space-y-0">
+                <h2 class="text-2xl font-bold text-gray-700">已存儲巡察紀錄</h2>
+                <!-- Export Button - 確保在手機上按鈕不會太小 -->
+                <button id="export-button" onclick="exportToCSV()" class="w-full sm:w-auto bg-secondary-green hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg text-sm transition duration-150 ease-in-out disabled:opacity-50" disabled>
+                    匯出 CSV (Google 試算表)
+                </button>
+            </div>
+            <div id="inspections-list" class="space-y-4">
+                <p class="text-center text-gray-500" id="loading-text">載入歷史紀錄中...</p>
+                <!-- Inspection records will be listed here by script.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 引用外部 JavaScript 檔案 (必須是 type="module" 才能使用 Firebase import) -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
