@@ -1,381 +1,248 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東森國際穀倉巡察表 - 實時記錄</title>
-    <!-- 載入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* 使用 Inter 字體 */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            background-color: #f3f4f6;
-        }
-        /* 專為移動設備設計的卡片陰影和圓角 */
-        .card {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            border-radius: 0.75rem; /* rounded-xl */
-        }
-        /* 避免警示框使用瀏覽器預設的 alert() */
-        #alert-box {
-            transition: opacity 0.3s ease-in-out;
-        }
-    </style>
-</head>
-<body class="p-4 md:p-8">
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>東森國際假日巡察表</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>東森國際台中營運管理處巡察表</h1>
 
-    <!-- 全域警示/訊息框 -->
-    <div id="alert-box" class="fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg text-white font-medium opacity-0 pointer-events-none" role="alert"></div>
-
-    <!-- 標題區域 -->
-    <header class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">東森國際穀倉巡察表</h1>
-        <p class="text-sm text-gray-500">實時記錄與查詢 (v1.0)</p>
-        <p id="user-info" class="text-xs text-blue-600 mt-2">連線中...</p>
-    </header>
-
-    <!-- 主內容區塊 (切換表單和列表) -->
-    <main class="max-w-4xl mx-auto">
-        
-        <!-- Tab 切換按鈕 -->
-        <div class="flex justify-center space-x-4 mb-6">
-            <button id="tab-new" class="px-6 py-2 rounded-full font-medium text-sm transition-colors bg-blue-600 text-white shadow-md hover:bg-blue-700">
-                + 新增巡查記錄
-            </button>
-            <button id="tab-list" class="px-6 py-2 rounded-full font-medium text-sm transition-colors bg-white text-gray-600 border border-gray-300 hover:bg-gray-100">
-                查看巡查歷史
-            </button>
-        </div>
-
-        <!-- 1. 新增巡查表單 (預設顯示) -->
-        <div id="view-form" class="card p-6 bg-white transition-all duration-300">
-            <h2 class="text-xl font-semibold mb-4 text-gray-700">記錄巡查發現</h2>
-            <form id="inspection-form" class="space-y-4">
-                
-                <!-- 巡查日期 -->
-                <div>
-                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">巡查日期</label>
-                    <input type="date" id="date" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                
-                <!-- 巡查項目 (下拉選單或輸入) -->
-                <div>
-                    <label for="item" class="block text-sm font-medium text-gray-700 mb-1">巡查節點/項目</label>
-                    <input type="text" id="item" placeholder="例如：機械塔、#3穀倉外觀、管制站" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <!-- 發現狀況 -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">發現狀況</label>
-                    <div class="flex space-x-4">
-                        <label class="inline-flex items-center">
-                            <input type="radio" name="status" value="無異常" checked class="form-radio h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500">
-                            <span class="ml-2 text-sm text-green-700">無異常 (OK)</span>
-                        </label>
-                        <label class="inline-flex items-center">
-                            <input type="radio" name="status" value="異常" class="form-radio h-4 w-4 text-red-600 border-gray-300 focus:ring-red-500">
-                            <span class="ml-2 text-sm text-red-700">異常 (Alert)</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 備註/說明 -->
-                <div>
-                    <label for="details" class="block text-sm font-medium text-gray-700 mb-1">備註/詳細說明 (異常時必填)</label>
-                    <textarea id="details" rows="3" placeholder="請描述發現的細節、位置、或建議處理方式" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
-                </div>
-
-                <!-- 提交按鈕 -->
-                <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-150 shadow-lg mt-4">
-                    儲存巡查記錄
-                </button>
-            </form>
-        </div>
-
-        <!-- 2. 巡查歷史列表 (預設隱藏) -->
-        <div id="view-list" class="hidden transition-all duration-300">
-            <h2 class="text-xl font-semibold mb-4 text-gray-700">歷史巡查記錄</h2>
-            <div id="records-container" class="space-y-4">
-                <!-- 紀錄將由 JavaScript 實時載入 -->
-                <p class="text-gray-500 text-center p-8">正在載入歷史記錄...</p>
+      <form id="inspectionForm" method="POST">
+        <fieldset>
+          <legend>一、基礎資訊</legend>
+          <div class="form-group">
+            <label for="inspectionDate">巡察日期：</label>
+            <input type="date" id="inspectionDate" name="巡察日期" required />
+          </div>
+          <div class="form-group">
+            <label for="inspector">巡察人：</label>
+            <input
+              type="text"
+              id="inspector"
+              name="巡察人"
+              placeholder="請輸入巡察人姓名"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="inspectionTime">查核時間：</label>
+            <input
+              type="time"
+              id="inspectionTime"
+              name="查核時間"
+              value="08:00"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>巡察類型：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="巡察類型" value="一般假日" checked />
+                一般假日</label
+              >
+              <label
+                ><input type="radio" name="巡察類型" value="連續假日" />
+                連續假日</label
+              >
             </div>
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="binNumber">穀倉編號：</label>
+            <select id="binNumber" name="穀倉編號" required>
+              <option value="1">#1 號穀倉</option>
+              <option value="3">#3 號穀倉</option>
+              <option value="71" selected>#71 號穀倉</option>
+              <option value="72">#72 號穀倉</option>
+            </select>
+          </div>
+        </fieldset>
 
-    </main>
+        <fieldset>
+          <legend>二、穀倉作業狀況</legend>
 
-    <!-- Load Firebase Modules and Core Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, onSnapshot, collection, query, serverTimestamp, addDoc, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+          <div class="form-group">
+            <label id="binStatusLabel">#71 號穀倉 作業狀態：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="穀倉作業狀態" value="進倉作業中" />
+                進倉作業中 (○)</label
+              >
+              <label
+                ><input type="radio" name="穀倉作業狀態" value="出倉作業中" />
+                出倉作業中 (○)</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="穀倉作業狀態"
+                  value="無作業"
+                  checked
+                />
+                無作業 ( )</label
+              >
+            </div>
+          </div>
 
-        // ====================================================================
-        // 1. 全域變數與 Firebase 初始化
-        // ====================================================================
-        
-        // 確保環境變數存在，並從環境變數載入配置
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-grain-inspection-app';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+          <div class="form-group">
+            <label for="bin_desc"
+              >穀倉作業說明 (如作業人員、進出倉狀態)：</label
+            >
+            <textarea id="bin_desc" name="穀倉作業說明" rows="3"></textarea>
+          </div>
+        </fieldset>
 
-        // Firestore 資料集合路徑 (公開路徑，便於團隊查看)
-        const COLLECTION_PATH = `artifacts/${appId}/public/data/inspections`;
+        <fieldset>
+          <legend>三、碼頭區與主要設備檢查</legend>
 
-        let app, db, auth;
-        let userId = 'loading'; 
-        let userName = '訪客'; 
+          <div class="form-group check-item">
+            <label>吸/卸穀機 ▲一樓樓梯門 (無作業時上鎖)：</label>
+            <div class="radio-group">
+              <label
+                ><input
+                  type="radio"
+                  name="吸穀機門鎖"
+                  value="正常/上鎖"
+                  checked
+                />
+                正常/上鎖</label
+              >
+              <label
+                ><input type="radio" name="吸穀機門鎖" value="異常/未上鎖" />
+                異常/未上鎖</label
+              >
+            </div>
+          </div>
 
-        setLogLevel('debug'); // 開啟偵錯日誌
+          <div class="form-group check-item">
+            <label>▲船邊纜繩、舷梯、防鼠盾：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="纜繩防鼠盾" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="纜繩防鼠盾" value="異常" />
+                異常</label
+              >
+            </div>
+          </div>
 
-        // 初始化 Firebase 應用
-        if (Object.keys(firebaseConfig).length > 0) {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-        } else {
-            showAlert('Firebase 設定遺失，應用程式無法運行。', 'error');
-            // 移除非法的 return; 語句
-        }
+          <div class="form-group check-item">
+            <label>▲碼頭東西側交界 (管制狀態)：</label>
+            <div class="radio-group">
+              <label
+                ><input
+                  type="radio"
+                  name="東西側交界"
+                  value="正常管制"
+                  checked
+                />
+                正常管制</label
+              >
+              <label
+                ><input type="radio" name="東西側交界" value="管制異常" />
+                管制異常</label
+              >
+            </div>
+          </div>
 
-        // ====================================================================
-        // 2. 認證流程 (Authentication)
-        // ====================================================================
-        
-        // 僅在 Firebase Auth 成功初始化後才執行認證和監聽
-        if (auth) {
-            async function authenticateUser() {
-                try {
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                } catch (error) {
-                    showAlert(`認證失敗: ${error.message}`, 'error');
-                }
-            }
+          <div class="form-group check-item">
+            <label>地磅磅槽積水檢查：</label>
+            <div class="radio-group">
+              <label
+                ><input
+                  type="radio"
+                  name="磅槽積水"
+                  value="正常/無積水"
+                  checked
+                />
+                正常/無積水</label
+              >
+              <label
+                ><input type="radio" name="磅槽積水" value="異常/有積水" />
+                異常/有積水</label
+              >
+            </div>
+          </div>
+        </fieldset>
 
-            // 監聽認證狀態變化
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    userId = user.uid;
-                    // 使用 email 或 uid 的前綴作為名稱
-                    userName = user.email ? user.email.split('@')[0] : `User-${user.uid.substring(0, 4)}`;
-                    document.getElementById('user-info').textContent = `使用者 ID (公開): ${user.uid} | 名稱: ${userName}`;
-                    showAlert('連線成功並已登入。', 'success');
-                    setupRealtimeListener(); // 認證完成後，開始監聽資料
-                } else {
-                    userId = crypto.randomUUID(); 
-                    userName = '匿名訪客';
-                    document.getElementById('user-info').textContent = `使用者 ID (本地): ${userId} | 名稱: ${userName}`;
-                    showAlert('連線成功，目前為匿名模式。', 'warning');
-                    setupRealtimeListener(); // 即使匿名也監聽資料
-                }
-            });
+        <fieldset>
+          <legend>四、消防與安全管制</legend>
 
-            authenticateUser();
+          <div class="form-group check-item">
+            <label>消防受信總機系統：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="消防總機" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="消防總機" value="異常" /> 異常</label
+              >
+            </div>
+          </div>
 
-        } else {
-            // Firebase Auth 初始化失敗的後續處理
-            document.getElementById('user-info').textContent = `連線失敗，請檢查配置。`;
-            const recordsContainer = document.getElementById('records-container');
-            recordsContainer.innerHTML = `<p class="text-red-500 text-center p-8">Firebase 初始化失敗，無法載入資料。</p>`;
-        }
+          <div class="form-group check-item">
+            <label>機械塔南、北側邊門及倉底管制：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="機械塔管制" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="機械塔管制" value="異常" />
+                異常</label
+              >
+            </div>
+          </div>
 
+          <div class="form-group check-item">
+            <label>人車進出管制 (管制站)：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="人車管制" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="人車管制" value="異常" /> 異常</label
+              >
+            </div>
+          </div>
+        </fieldset>
 
-        // ====================================================================
-        // 3. 實時資料監聽 (Realtime Data Listener)
-        // ====================================================================
+        <fieldset>
+          <legend>五、發現問題與處理對策</legend>
+          <div class="form-group">
+            <label for="issue"
+              >問題描述
+              (請依照文件格式，例如：機具插頭是否拔離插座、設備溫度量測等)：</label
+            >
+            <textarea
+              id="issue"
+              name="問題描述"
+              rows="5"
+              placeholder="例如：發現高壓配電室周邊水溝有輕微積水；未使用的鑽床插頭已拔離。"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="solution">處理對策或說明：</label>
+            <textarea
+              id="solution"
+              name="處理對策或說明"
+              rows="3"
+              placeholder="例如：已通知人員清理水溝；無即時需處理問題。"
+            ></textarea>
+          </div>
+        </fieldset>
 
-        function setupRealtimeListener() {
-            // 只有在 db 存在時才設置監聽器
-            if (!db) {
-                console.error("Firestore instance (db) is not initialized.");
-                return;
-            }
-            // 查詢最新的 50 筆記錄，按時間戳降序排列
-            const q = query(collection(db, COLLECTION_PATH), orderBy("timestamp", "desc"), limit(50));
-            const recordsContainer = document.getElementById('records-container');
+        <button type="submit" class="submit-button">提交巡察報告</button>
+      </form>
+    </div>
 
-            onSnapshot(q, (snapshot) => {
-                const records = [];
-                snapshot.forEach((doc) => {
-                    records.push({ id: doc.id, ...doc.data() });
-                });
-                renderRecords(records);
-            }, (error) => {
-                console.error("實時監聽失敗:", error);
-                recordsContainer.innerHTML = `<p class="text-red-500 text-center p-8">載入記錄失敗: ${error.message}</p>`;
-                showAlert('載入歷史記錄時發生錯誤。', 'error');
-            });
-        }
-
-
-        // ====================================================================
-        // 4. UI 渲染與事件處理
-        // ====================================================================
-
-        function renderRecords(records) {
-            const recordsContainer = document.getElementById('records-container');
-            if (records.length === 0) {
-                recordsContainer.innerHTML = '<p class="text-gray-500 text-center p-8">目前沒有任何巡查記錄。</p>';
-                return;
-            }
-
-            recordsContainer.innerHTML = records.map(record => {
-                const statusColor = record.status === '異常' ? 'text-red-600 font-bold' : 'text-green-600';
-                const bgColor = record.status === '異常' ? 'bg-red-100/50 border-red-300' : 'bg-white border-gray-200';
-                const detailsText = record.details || '無詳細說明';
-                const dateString = record.date || '未知日期';
-                // 處理 Firestore Timestamp 轉換為本地時間
-                const timeString = record.timestamp ? new Date(record.timestamp.seconds * 1000).toLocaleString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '未知時間';
-                
-                return `
-                    <div class="card p-4 border ${bgColor} hover:shadow-lg transition duration-200">
-                        <div class="flex flex-col md:flex-row md:justify-between md:items-start">
-                            <div class="mb-2 md:mb-0">
-                                <p class="text-xs text-gray-400">記錄時間: ${dateString} ${timeString}</p>
-                                <p class="text-lg font-semibold text-gray-800">${record.item}</p>
-                            </div>
-                            <div class="text-right flex-shrink-0">
-                                <span class="px-3 py-1 text-sm rounded-full ${statusColor} bg-opacity-20 ${record.status === '異常' ? 'bg-red-200' : 'bg-green-200'}">
-                                    ${record.status}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="mt-2 pt-2 border-t border-gray-100">
-                            <p class="text-sm text-gray-600 break-words">${detailsText}</p>
-                            <p class="text-xs text-gray-400 mt-2">記錄者: ${record.recorderName} (${record.recorderId.substring(0, 8)}...)</p>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 處理表單提交事件
-        document.getElementById('inspection-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // 只有在 db 存在時才允許提交
-            if (!db) {
-                showAlert('Firebase 未連線，無法儲存記錄。', 'error');
-                return;
-            }
-
-            const date = document.getElementById('date').value;
-            const item = document.getElementById('item').value.trim();
-            const status = document.querySelector('input[name="status"]:checked').value;
-            const details = document.getElementById('details').value.trim();
-
-            if (!date || !item) {
-                showAlert('請填寫巡查日期和項目！', 'warning');
-                return;
-            }
-
-            if (status === '異常' && details.length < 5) {
-                showAlert('異常狀態下，請在備註中詳細說明 (至少 5 個字)！', 'warning');
-                return;
-            }
-
-            const recordData = {
-                date: date,
-                item: item,
-                status: status,
-                details: details,
-                recorderId: userId,
-                recorderName: userName,
-                timestamp: serverTimestamp() // 使用 Firestore 服務器時間戳
-            };
-
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.textContent = '儲存中...';
-
-            try {
-                // 將資料新增到 Firestore
-                await addDoc(collection(db, COLLECTION_PATH), recordData);
-
-                showAlert('巡查記錄儲存成功！', 'success');
-                e.target.reset(); // 清空表單
-                document.getElementById('date').valueAsDate = new Date(); // 重設日期為今天
-
-            } catch (error) {
-                console.error("儲存記錄失敗:", error);
-                showAlert(`儲存記錄失敗: ${error.message}`, 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '儲存巡查記錄';
-            }
-        });
-
-        // ====================================================================
-        // 5. 畫面切換 (Tab Logic)
-        // ====================================================================
-
-        const tabNew = document.getElementById('tab-new');
-        const tabList = document.getElementById('tab-list');
-        const viewForm = document.getElementById('view-form');
-        const viewList = document.getElementById('view-list');
-
-        function setActiveTab(active) {
-            if (active === 'form') {
-                tabNew.classList.remove('bg-white', 'text-gray-600', 'border');
-                tabNew.classList.add('bg-blue-600', 'text-white');
-                tabList.classList.remove('bg-blue-600', 'text-white');
-                tabList.classList.add('bg-white', 'text-gray-600', 'border');
-                viewForm.classList.remove('hidden');
-                viewList.classList.add('hidden');
-            } else {
-                tabList.classList.remove('bg-white', 'text-gray-600', 'border');
-                tabList.classList.add('bg-blue-600', 'text-white');
-                tabNew.classList.remove('bg-blue-600', 'text-white');
-                tabNew.classList.add('bg-white', 'text-gray-600', 'border');
-                viewList.classList.remove('hidden');
-                viewForm.classList.add('hidden');
-            }
-        }
-
-        tabNew.addEventListener('click', () => setActiveTab('form'));
-        tabList.addEventListener('click', () => setActiveTab('list'));
-
-        // 預設設定日期為今天
-        document.getElementById('date').valueAsDate = new Date();
-
-
-        // ====================================================================
-        // 6. 輔助函式 (Helper Functions)
-        // ====================================================================
-
-        function showAlert(message, type) {
-            const box = document.getElementById('alert-box');
-            let colorClass = '';
-
-            switch (type) {
-                case 'success':
-                    colorClass = 'bg-green-500';
-                    break;
-                case 'error':
-                    colorClass = 'bg-red-500';
-                    break;
-                case 'warning':
-                    colorClass = 'bg-yellow-500';
-                    break;
-                default:
-                    colorClass = 'bg-blue-500';
-            }
-            
-            box.textContent = message;
-            box.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg text-white font-medium opacity-100 pointer-events-auto ${colorClass}`;
-
-            setTimeout(() => {
-                box.classList.remove('opacity-100');
-                box.classList.add('opacity-0');
-            }, 5000);
-        }
-
-    </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
