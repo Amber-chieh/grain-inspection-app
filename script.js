@@ -85,7 +85,7 @@ document
           // 獲取選擇的穀倉編號
           const selectedBin = formData.get("穀倉編號") || "未知";
           alert(
-            `#${selectedBin} 號穀倉巡察報告提交成功！數據已寫入 Google 試算表。`
+            `#${selectedBin} 號穀倉巡察報告已提交成功，辛苦了！`
           );
           form.reset();
           // 重置日期為當日
