@@ -1,429 +1,245 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>東森國際假日巡察表</title>
-    <!-- 載入 Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* 使用 Inter 字體 */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fb;
-        }
-        /* 自定義樣式以確保表單元件的視覺一致性 */
-        .form-container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        fieldset {
-            border: 1px solid #e5e7eb;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-        }
-        legend {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1f2937;
-            padding: 0 0.5rem;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
-        }
-        .radio-group, .checkbox-group {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .radio-group label, .checkbox-group label {
-            display: flex;
-            align-items: center;
-            font-weight: normal;
-            cursor: pointer;
-        }
-        input[type="text"], input[type="date"], input[type="time"], select, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-            outline: none;
-        }
-        textarea {
-            resize: vertical;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="form-container">
-        <h1 class="text-3xl font-bold text-center mb-6 text-indigo-700">東森國際假日穀倉巡察表</h1>
+      <h1>東森國際台中營運管理處巡察表</h1>
 
-        <form id="inspectionForm" method="POST" class="space-y-6">
-            <fieldset>
-                <legend>一、基礎資訊</legend>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="form-group">
-                        <label for="inspectionDate">巡察日期：</label>
-                        <input type="date" id="inspectionDate" name="巡察日期" required class="w-full" />
-                    </div>
-                    <div class="form-group">
-                        <label for="inspector">巡察人：</label>
-                        <input
-                            type="text"
-                            id="inspector"
-                            name="巡察人"
-                            placeholder="請輸入姓名"
-                            required
-                            class="w-full"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="inspectionTime">查核時間：</label>
-                        <input
-                            type="time"
-                            id="inspectionTime"
-                            name="查核時間"
-                            value="08:00"
-                            required
-                            class="w-full"
-                        />
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div class="form-group">
-                        <label>巡察類型：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="巡察類型" value="一般假日" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                一般假日
-                            </label>
-                            <label>
-                                <input type="radio" name="巡察類型" value="連續假日" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                連續假日
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="binNumber">穀倉編號：</label>
-                        <select id="binNumber" name="穀倉編號" required class="w-full">
-                            <option value="1">#1 號穀倉</option>
-                            <option value="3">#3 號穀倉</option>
-                            <option value="71" selected>#71 號穀倉</option>
-                            <option value="72">#72 號穀倉</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
+      <form id="inspectionForm" method="POST">
+        <fieldset>
+          <legend>一、基礎資訊</legend>
+          <div class="form-group">
+            <label for="inspectionDate">巡察日期：</label>
+            <input type="date" id="inspectionDate" name="巡察日期" required />
+          </div>
+          <div class="form-group">
+            <label for="inspector">巡察人：</label>
+            <input
+              type="text"
+              id="inspector"
+              name="巡察人"
+              placeholder="請輸入巡察人姓名"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="inspectionTime">查核時間：</label>
+            <input
+              type="time"
+              id="inspectionTime"
+              name="查核時間"
+              value="08:00"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>巡察類型：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="巡察類型" value="一般假日" checked />
+                一般假日</label
+              >
+              <label
+                ><input type="radio" name="巡察類型" value="連續假日" />
+                連續假日</label
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="binNumber">穀倉編號：</label>
+            <select id="binNumber" name="穀倉編號" required>
+              <option value="1">#1 號穀倉</option>
+              <option value="3">#3 號穀倉</option>
+              <option value="71" selected>#71 號穀倉</option>
+              <option value="72">#72 號穀倉</option>
+            </select>
+          </div>
+        </fieldset>
 
-            <fieldset>
-                <legend>二、穀倉作業狀(可複選) </legend>
+        <fieldset>
+          <legend>二、穀倉作業狀況</legend>
 
-                <div class="form-group">
-                    <label id="binStatusLabel" class="text-lg">#71 號穀倉 作業狀態：</label>
-                    <div class="checkbox-group mt-2">
-                        <!-- 更改為 Checkbox，並使用不同的 name 屬性以便於資料處理，或同一個 name 屬性也可以 -->
-                        <!-- 這裡使用獨立的 name，並透過 JS 處理互斥邏輯 -->
-                        <label>
-                            <input type="checkbox" name="作業狀態_進倉" id="inboundOp" value="進倉作業中" class="mr-2 rounded text-indigo-600 focus:ring-indigo-500" />
-                            進倉作業中
-                        </label>
-                        <label>
-                            <input type="checkbox" name="作業狀態_出倉" id="outboundOp" value="出倉作業中" class="mr-2 rounded text-indigo-600 focus:ring-indigo-500" />
-                            出倉作業中
-                        </label>
-                        <label>
-                            <input type="checkbox" name="作業狀態_無作業" id="noOp" value="無作業" class="mr-2 rounded text-indigo-600 focus:ring-indigo-500" />
-                            無作業
-                        </label>
-                    </div>
-                </div>
+          <div class="form-group">
+            <label id="binStatusLabel">#71 號穀倉 作業狀態：</label>
+            <div class="radio-group">
+              <label
+                ><input type="checkbox" name="穀倉作業狀態" value="進倉作業中" />
+                進倉作業中</label>
+              <label
+                ><input type="checkbox" name="穀倉作業狀態" value="出倉作業中" />
+                出倉作業中</label>
+              <label
+                ><input
+                  type="checkbox"
+                  name="穀倉作業狀態"
+                  value="無作業"
+                  checked
+                />
+                無作業</label>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label for="bin_desc">穀倉作業說明 (如作業人員、進出倉狀態)：</label>
-                    <textarea id="bin_desc" name="穀倉作業說明" rows="3" class="w-full"></textarea>
-                </div>
-            </fieldset>
+          <div class="form-group">
+            <label for="bin_desc"
+              >穀倉作業說明 (如作業人員、進出倉狀態)：</label
+            >
+            <textarea id="bin_desc" name="穀倉作業說明" rows="3"></textarea>
+          </div>
+        </fieldset>
 
-            <fieldset>
-                <legend>三、碼頭區與主要設備檢查</legend>
+        <fieldset>
+          <legend>三、碼頭區與主要設備檢查</legend>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="form-group check-item">
-                        <label>吸/卸穀機 ▲一樓樓梯門 (無作業時上鎖)：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="吸穀機門鎖" value="正常/上鎖" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常/上鎖
-                            </label>
-                            <label>
-                                <input type="radio" name="吸穀機門鎖" value="異常/未上鎖" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                異常/未上鎖
-                            </label>
-                        </div>
-                    </div>
+          <div class="form-group check-item">
+            <label>吸/卸穀機 ▲一樓樓梯門 (無作業時上鎖)：</label>
+            <div class="radio-group">
+              <label
+                ><input
+                  type="radio"
+                  name="吸穀機門鎖"
+                  value="正常/上鎖"
+                  checked
+                />
+                正常/上鎖</label
+              >
+              <label
+                ><input type="radio" name="吸穀機門鎖" value="異常/未上鎖" />
+                異常/未上鎖</label
+              >
+            </div>
+          </div>
 
-                    <div class="form-group check-item">
-                        <label>▲船邊纜繩、舷梯、防鼠盾：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="纜繩防鼠盾" value="正常" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常
-                            </label>
-                            <label>
-                                <input type="radio" name="纜繩防鼠盾" value="異常" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                異常
-                            </label>
-                        </div>
-                    </div>
-                </div>
+          <div class="form-group check-item">
+            <label>▲船邊纜繩、舷梯、防鼠盾：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="纜繩防鼠盾" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="纜繩防鼠盾" value="異常" />
+                異常</label
+              >
+            </div>
+          </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div class="form-group check-item">
-                        <label>▲碼頭東西側交界 (管制狀態)：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="東西側交界" value="正常管制" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常管制
-                            </label>
-                            <label>
-                                <input type="radio" name="東西側交界" value="管制異常" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                管制異常
-                            </label>
-                        </div>
-                    </div>
+          <div class="form-group check-item">
+            <label>▲碼頭東西側交界 (管制狀態)：</label>
+            <div class="radio-group">
+              <label
+                ><input
+                  type="radio"
+                  name="東西側交界"
+                  value="正常管制"
+                  checked
+                />
+                正常管制</label
+              >
+              <label
+                ><input type="radio" name="東西側交界" value="管制異常" />
+                管制異常</label
+              >
+            </div>
+          </div>
 
-                    <div class="form-group check-item">
-                        <label>地磅磅槽積水檢查：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="磅槽積水" value="正常/無積水" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常/無積水
-                            </label>
-                            <label>
-                                <input type="radio" name="磅槽積水" value="異常/有積水" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                異常/有積水
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+          <div class="form-group check-item">
+            <label>地磅磅槽積水檢查：</label>
+            <div class="radio-group">
+              <label
+                ><input
+                  type="radio"
+                  name="磅槽積水"
+                  value="正常/無積水"
+                  checked
+                />
+                正常/無積水</label
+              >
+              <label
+                ><input type="radio" name="磅槽積水" value="異常/有積水" />
+                異常/有積水</label
+              >
+            </div>
+          </div>
+        </fieldset>
 
-            <fieldset>
-                <legend>四、消防與安全管制</legend>
+        <fieldset>
+          <legend>四、消防與安全管制</legend>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="form-group check-item">
-                        <label>消防受信總機系統：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="消防總機" value="正常" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常
-                            </label>
-                            <label>
-                                <input type="radio" name="消防總機" value="異常" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                異常
-                            </label>
-                        </div>
-                    </div>
+          <div class="form-group check-item">
+            <label>消防受信總機系統：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="消防總機" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="消防總機" value="異常" /> 異常</label
+              >
+            </div>
+          </div>
 
-                    <div class="form-group check-item">
-                        <label>機械塔南、北側邊門及倉底管制：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="機械塔管制" value="正常" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常
-                            </label>
-                            <label>
-                                <input type="radio" name="機械塔管制" value="異常" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                異常
-                            </label>
-                        </div>
-                    </div>
+          <div class="form-group check-item">
+            <label>機械塔南、北側邊門及倉底管制：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="機械塔管制" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="機械塔管制" value="異常" />
+                異常</label
+              >
+            </div>
+          </div>
 
-                    <div class="form-group check-item">
-                        <label>人車進出管制 (管制站)：</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="人車管制" value="正常" checked class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                正常
-                            </label>
-                            <label>
-                                <input type="radio" name="人車管制" value="異常" class="mr-2 text-indigo-600 focus:ring-indigo-500" />
-                                異常
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+          <div class="form-group check-item">
+            <label>人車進出管制 (管制站)：</label>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="人車管制" value="正常" checked />
+                正常</label
+              >
+              <label
+                ><input type="radio" name="人車管制" value="異常" /> 異常</label
+              >
+            </div>
+          </div>
+        </fieldset>
 
-            <fieldset>
-                <legend>五、發現問題與處理對策</legend>
-                <div class="form-group">
-                    <label for="issue">問題描述 (請依照文件格式，例如：機具插頭是否拔離插座、設備溫度量測等)：</label>
-                    <textarea
-                        id="issue"
-                        name="問題描述"
-                        rows="5"
-                        placeholder="例如：發現高壓配電室周邊水溝有輕微積水；未使用的鑽床插頭已拔離。"
-                        class="w-full"
-                    ></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="solution">處理對策或說明：</label>
-                    <textarea
-                        id="solution"
-                        name="處理對策或說明"
-                        rows="3"
-                        placeholder="例如：已通知人員清理水溝；無即時需處理問題。"
-                        class="w-full"
-                    ></textarea>
-                </div>
-            </fieldset>
+        <fieldset>
+          <legend>五、發現問題與處理對策</legend>
+          <div class="form-group">
+            <label for="issue"
+              >問題描述
+              (請依照文件格式，例如：機具插頭是否拔離插座、設備溫度量測等)：</label
+            >
+            <textarea
+              id="issue"
+              name="問題描述"
+              rows="5"
+              placeholder="例如：發現高壓配電室周邊水溝有輕微積水；未使用的鑽床插頭已拔離。"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="solution">處理對策或說明：</label>
+            <textarea
+              id="solution"
+              name="處理對策或說明"
+              rows="3"
+              placeholder="例如：已通知人員清理水溝；無即時需處理問題。"
+            ></textarea>
+          </div>
+        </fieldset>
 
-            <button type="submit" class="submit-button w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-150 ease-in-out shadow-md">
-                提交巡察報告
-            </button>
-        </form>
+        <button type="submit" class="submit-button">提交巡察報告</button>
+      </form>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const binNumberSelect = document.getElementById('binNumber');
-            const binStatusLabel = document.getElementById('binStatusLabel');
-            const inboundOp = document.getElementById('inboundOp');
-            const outboundOp = document.getElementById('outboundOp');
-            const noOp = document.getElementById('noOp');
-            const form = document.getElementById('inspectionForm');
-
-            // 1. 穀倉編號變化時，更新標籤文字
-            const updateBinStatusLabel = () => {
-                const selectedText = binNumberSelect.options[binNumberSelect.selectedIndex].text;
-                binStatusLabel.textContent = `${selectedText} 作業狀態：`;
-            };
-            binNumberSelect.addEventListener('change', updateBinStatusLabel);
-            updateBinStatusLabel(); // Initial update
-
-            // 2. 處理「無作業」與「進倉/出倉」的互斥邏輯
-            
-            // 監聽 進倉 或 出倉 (如果有作業)
-            const handleOperationCheck = (event) => {
-                if (event.target.checked) {
-                    // 如果勾選了「進倉」或「出倉」，則取消勾選「無作業」
-                    noOp.checked = false;
-                } else if (!inboundOp.checked && !outboundOp.checked) {
-                    // 如果所有作業都被取消勾選，則預設勾選「無作業」
-                    noOp.checked = true;
-                }
-            };
-
-            // 監聽 無作業 (沒有作業)
-            noOp.addEventListener('change', () => {
-                if (noOp.checked) {
-                    // 如果勾選了「無作業」，則取消勾選所有作業
-                    inboundOp.checked = false;
-                    outboundOp.checked = false;
-                }
-            });
-
-            inboundOp.addEventListener('change', handleOperationCheck);
-            outboundOp.addEventListener('change', handleOperationCheck);
-
-            // 3. 提交表單處理 (可選：在實際應用中，您需要處理資料提交邏輯)
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                // 這裡可以加入您實際的資料收集和傳送邏輯
-                
-                const formData = new FormData(form);
-                const data = {};
-                for (let [key, value] of formData.entries()) {
-                    // 由於 checkbox 可能有多個值，這裡需要處理重複的鍵，但在我們新的設計中，每個作業狀態有獨立的 name
-                    if (key.startsWith('作業狀態_') && value === 'on') {
-                        // For unchecked checkboxes, the key won't be present in FormData if they don't have the same name.
-                        // We check for the value "on" which is the default for a checked checkbox without a value attribute.
-                        // Since we have specific values, we can rely on that. Let's adjust how we extract checkbox values.
-                        continue; // Skip the "on" value for simple checkboxes
-                    }
-                    data[key] = value;
-                }
-                
-                // Manually handle the checkbox data
-                data['作業狀態_進倉'] = inboundOp.checked ? inboundOp.value : '';
-                data['作業狀態_出倉'] = outboundOp.checked ? outboundOp.value : '';
-                data['作業狀態_無作業'] = noOp.checked ? noOp.value : '';
-
-                console.log('--- 提交的表單資料 ---');
-                console.log(data);
-
-                // 實際應用中，可以將 data 物件透過 fetch API 發送到後端伺服器
-                // alert('巡察報告已提交 (請查看 Console 獲取資料內容)');
-                
-                // 使用 custom modal 代替 alert()
-                showCustomModal('巡察報告已提交成功', 辛苦了！', 'success');
-            });
-            
-            // Custom Modal Functions (替代 alert)
-            function showCustomModal(title, message, type) {
-                let modal = document.getElementById('customModal');
-                if (!modal) {
-                    modal = document.createElement('div');
-                    modal.id = 'customModal';
-                    modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none z-50';
-                    modal.innerHTML = `
-                        <div class="bg-white p-6 rounded-lg shadow-xl w-96 transform scale-95 transition-transform duration-300">
-                            <h3 id="modalTitle" class="text-xl font-semibold mb-3"></h3>
-                            <p id="modalMessage" class="text-gray-700 mb-4"></p>
-                            <button id="modalCloseBtn" class="w-full py-2 rounded-lg text-white font-semibold transition-colors duration-150"></button>
-                        </div>
-                    `;
-                    document.body.appendChild(modal);
-                    document.getElementById('modalCloseBtn').addEventListener('click', () => {
-                        modal.classList.remove('opacity-100', 'pointer-events-auto');
-                        modal.classList.add('opacity-0', 'pointer-events-none');
-                    });
-                }
-
-                const titleElement = document.getElementById('modalTitle');
-                const messageElement = document.getElementById('modalMessage');
-                const closeBtn = document.getElementById('modalCloseBtn');
-                
-                titleElement.textContent = title;
-                messageElement.textContent = message;
-
-                // Set styles based on type
-                closeBtn.classList.remove('bg-green-500', 'hover:bg-green-600', 'bg-blue-500', 'hover:bg-blue-600', 'bg-red-500', 'hover:bg-red-600');
-                if (type === 'success') {
-                    closeBtn.classList.add('bg-green-500', 'hover:bg-green-600');
-                    closeBtn.textContent = '確定';
-                } else {
-                    closeBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');
-                    closeBtn.textContent = '關閉';
-                }
-
-                // Show modal
-                setTimeout(() => {
-                    modal.querySelector('div').classList.remove('scale-95');
-                    modal.querySelector('div').classList.add('scale-100');
-                    modal.classList.add('opacity-100', 'pointer-events-auto');
-                    modal.classList.remove('opacity-0', 'pointer-events-none');
-                }, 10);
-            }
-        });
-    </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

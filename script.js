@@ -47,9 +47,12 @@ document
     const formData = new FormData(form);
     const data = {};
 
-    // 獲取選擇的穀倉編號和作業狀態
+    // 獲取選擇的穀倉編號
     const binNumber = formData.get("穀倉編號");
-    const binStatus = formData.get("穀倉作業狀態");
+    
+    // 獲取所有選中的穀倉作業狀態（支持多選）
+    const binStatusArray = formData.getAll("穀倉作業狀態");
+    const binStatus = binStatusArray.join("、"); // 用頓號連接多個選項
 
     // 遍歷所有表單欄位
     formData.forEach((value, key) => {
