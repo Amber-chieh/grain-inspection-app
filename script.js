@@ -9,7 +9,7 @@ function updateBinLabel() {
 
   if (binNumber && binStatusLabel) {
     const selectedBin = binNumber.value;
-    binStatusLabel.textContent = `#${selectedBin} 號穀倉 作業狀態：`;
+    binStatusLabel.textContent = `#${selectedBin} 號穀倉 作業狀態 (複選)：`;
   }
 }
 
